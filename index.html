@@ -10,11 +10,32 @@
     <title>Weather App</title>
 </head>
 
-<body>
-    <div id="app">
-        <h2>{{ title }}</h2>
+<body id="app">
+    <h1>Vue.JS Weather App</h1>
+    <div>
+        <h2>Your Location</h2>
+        <p v-if="latitude && longitude && city && region && country">
+            You are located in {{ city }}, {{ region }}, {{ country }} at coordinates ({{ longitude }}, {{ latitude }})
+        </p>
+        <p v-else-if="latitude && longitude && !city && !region && !country">
+            You are located at coordinates ({{ longitude }}, {{ latitude }})
+        </p>
+        <p v-else>
+            Loading... be patient...
+        </p>
+    </div>
+    <div>
+        <h2>Current Conditions</h2>
         <p>
-            {{ desc }}
+            {{ date }}
+            <ul>
+                <li>Currently {{ temp }}F</li>
+                <li>High {{ high_temp }}F</li>
+                <li>Low {{ low_temp }}F</li>
+                <li>{{ sky_conditions }}</li>
+                <li>{{ humidity }}% humidity</li>
+                <li>{{ pressure }} hPa pressure</li>
+            </ul>
         </p>
     </div>
 </body>
