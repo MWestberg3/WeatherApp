@@ -5,38 +5,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="script.js" defer></script>
     <title>Weather App</title>
 </head>
 
 <body id="app">
-    <h1>Vue.JS Weather App</h1>
-    <div>
+    <h1 class="white stuff-box">Vue.JS Weather App</h1>
+    <div class="blue stuff-box">
         <h2>Your Location</h2>
         <p v-if="latitude && longitude && city && region && country">
-            You are located in {{ city }}, {{ region }}, {{ country }} at coordinates ({{ longitude }}, {{ latitude }})
+            You are located in {{ city }}, {{ region }}, {{ country }} at coordinates ({{ latitude }}, {{ longitude }})
         </p>
-        <p v-else-if="latitude && longitude && !city && !region && !country">
+        <p v-else-if="latitude && longitude && !city || !region || !country">
             You are located at coordinates ({{ longitude }}, {{ latitude }})
         </p>
         <p v-else>
-            Loading... be patient...
+            Loading...
         </p>
     </div>
-    <div>
+    <div class="yellow stuff-box">
         <h2>Current Conditions</h2>
-        <p>
-            {{ date }}
-            <ul>
+        <template v-if="temp === undefined">
+            <p>
+                Loading...
+            </p>
+        </template>
+        <template v-else>
+            <p>
+                Current weather conditions @ {{ date }}, {{ time }}
                 <li>Currently {{ temp }}F</li>
                 <li>High {{ high_temp }}F</li>
                 <li>Low {{ low_temp }}F</li>
                 <li>{{ sky_conditions }}</li>
                 <li>{{ humidity }}% humidity</li>
                 <li>{{ pressure }} hPa pressure</li>
-            </ul>
-        </p>
+            </p>
+        </template>
+    </div>
+    <div class="cyan stuff-box">
+        <h2>5 day 3-hour forecast</h2>
+        <span style="color:red">{{ unlikely }} unlikely </span>
+        <span style="color:black">{{ neutral }} neutral </span>
+        <span style="color:darkgreen">{{ likely }} likely</span>
+        <div v-for="(forecast, idx) in forecasts" class="stuff-box"
+            :class="{black: forecast.neutral, green: forecast.likely, red: forecast.unlikely}" v-on:click="toggle"
+            :data-index="idx">
+            <h3>Conditions for {{ utc_to_local_date(forecast.dt) }}, {{ utc_to_local_time(forecast.dt) }}</h3>
+            <li>Temperature {{ forecast.main.temp }}F</li>
+            <li>{{ forecast.weather[0].description }}</li>
+            <li>{{ forecast.main.humidity }}% humidity</li>
+            <li>{{ forecast.main.pressure }} hPa</li>
+        </div>
     </div>
 </body>
 

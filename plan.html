@@ -33,6 +33,55 @@
     </div>
     <div>
         <h2>Phase 1: Design</h2>
+        <b>script.js</b><br>
+        create app <br>
+        data() { <br>
+        return { <br>
+        latitude <br>
+        longitude <br>
+        city <br>
+        region <br>
+        country <br>
+        date <br>
+        time <br>
+        temp <br>
+        high_temp <br>
+        low_temp <br>
+        sky_conditions <br>
+        humidity <br>
+        pressure <br>
+
+        likely_counter <br>
+        unlikely_counter <br>
+        neutral_coutner <br>
+
+        forecasts <br>
+        } <br>
+        } <br>
+        mounted() { <br>
+        fetch ip location <br>
+        get current latitude, longitude, city, region, country, and set to data. <br>
+        return fetch current weather at current lat and long <br>
+        date = currentDate() <br>
+        time = currentTime() <br>
+        get temp, high_temp, low_temp, sky_conditions, humidity, pressure and set to data. <br>
+        return fetch 5 day forecast <br>
+        set forecasts to data <br>
+        } <br>
+        <i>methods:</i> <br>
+        currentDate(): return the current date in MM/DD/YYY format <br>
+        currentTime(): return the current time in HH:MM:SS AM/PM <br>
+        <b>convert UTC to Local Time(): </b><br>
+        get hours, check if above 12, if so, subtract 12, and add PM. If not, add AM. If it is 12, add PM, if its 0, add
+        AM. <br>
+        return currentTime <br>
+        <b>convert UTC to local Date():</b> <br>
+        same as above except using date rather than time. <br>
+        <b>toggle(ev)</b><br>
+        get index of item clicked. <br>
+        if item is neutral, set color to red and status to unlikely <br>
+        if item is unlikely, set color to green and status to likely <br>
+        if item is likely, set color to black and status to neutral <br>
     </div>
     <div>
         <h2>Phase 2: Implementation</h2>
