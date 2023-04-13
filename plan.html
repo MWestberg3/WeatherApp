@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div>
-        to install vue.js, add the tage <code>script src = "https://unpkg.com/vue@3/dist/vue.global.js"</code> in the
-        head tag
+    <div class="magenta stuff-box">
+        <a href="index.html">Weather App</a>
     </div>
-    <div>
+    <div class="blue stuff-box">
         <h2>Phase 0: Requirement Specifications</h2>
         <p>
             Using Vue.js, build a weather app that dynamically changes and reports the weather for the user's current
@@ -31,7 +31,7 @@
             how many likelies, unlicklies, and neutrals, changing with each click on a <code>div</code>.
         </p>
     </div>
-    <div>
+    <div class="cyan not-center">
         <h2>Phase 1: Design</h2>
         <b>script.js</b><br>
         create app <br>
@@ -55,9 +55,11 @@
         unlikely_counter <br>
         neutral_coutner <br>
 
-        forecasts <br>
+        forecasts {<br>
+        list <br>
+        likelihood <br>
         } <br>
-        } <br>
+        } <br><br>
         mounted() { <br>
         fetch ip location <br>
         get current latitude, longitude, city, region, country, and set to data. <br>
@@ -67,33 +69,57 @@
         get temp, high_temp, low_temp, sky_conditions, humidity, pressure and set to data. <br>
         return fetch 5 day forecast <br>
         set forecasts to data <br>
-        } <br>
+        } <br><br>
         <i>methods:</i> <br>
-        currentDate(): return the current date in MM/DD/YYY format <br>
-        currentTime(): return the current time in HH:MM:SS AM/PM <br>
+        <b>currentDate():</b> return the current date in MM/DD/YYY format <br><br>
+        <b>currentTime():</b> return the current time in HH:MM:SS AM/PM <br><br>
         <b>convert UTC to Local Time(): </b><br>
         get hours, check if above 12, if so, subtract 12, and add PM. If not, add AM. If it is 12, add PM, if its 0, add
         AM. <br>
-        return currentTime <br>
+        return currentTime <br><br>
         <b>convert UTC to local Date():</b> <br>
-        same as above except using date rather than time. <br>
+        same as above except using date rather than time. <br><br>
         <b>toggle(ev)</b><br>
         get index of item clicked. <br>
         if item is neutral, set color to red and status to unlikely <br>
         if item is unlikely, set color to green and status to likely <br>
-        if item is likely, set color to black and status to neutral <br>
+        if item is likely, set color to black and status to neutral <br><br>
+        <b>likelihood(index)</b><br>
+        return the likelihood from the likelihood array <br><br>
+        <b>updateCounter</b><br>
+        set all counters to 0 <br>
+        for the length of forecast_liklihood array: <br>
+        if the forecast is likely, add one to likely_counter <br>
+        if unlikely, add one to unlikely_counter <br>
+        if neutral, add on to neutral_counter
     </div>
-    <div>
+    <div class="yellow stuff-box">
         <h2>Phase 2: Implementation</h2>
+        <p>
+        <ul>
+            <li> I learned that you can call functions in the html class attribute </li>
+            <li> I learned that vue is very intuitive and there is a lot you can do to dynamically change the html output.</li>
+            <li> Perhaps the coolest thing I learned is how to use vue to dynamically create html elements.</li>
+        </ul>
+        </p>
     </div>
-    <div>
+    <div class="likekly stuff-box">
         <h2>Phase 3: Testing/Debugging</h2>
+        <p>
+            Main issues I had was changing the status of the 5 day forecast. I had to scrap what I did (initially a .setAttribute) and rethink my strategy. I ended up adding an array to the data() with the likelihood status for each item in forecasts and I had to add a helper method that would return the status of the array. Additionally, I needed to add a coutner to update the overall value of how many likekly, unlikely, and neutral responses.
+        </p>
     </div>
-    <div>
+    <div class="magenta stuff-box">
         <h2>Phase 4: Deployment</h2>
+        <p>
+            deployed to git.
+        </p>
     </div>
-    <div>
+    <div class="unlikely stuff-box">
         <h2>Phase 5: Maintenance</h2>
+        <p>
+            I think that this assignment is very intuitive. I added some protections so if the location api does not retrieve the region, city, or country, the longitude and latitude values are still grabbed. If any value is not grabbed, it is simple to tell which value needs to be grabbed, which allows for simpler debugging. I also did not hardcode any numbers, allowing for complete dynamicism of the overall application.
+        </p>
     </div>
 </body>
 

@@ -12,6 +12,19 @@
     border-style: solid;
 }
 
+.not-center {
+    text-shadow: 1px 1px 2px black;
+    color: white;
+    font-family: 'helvetica neue', helvetica, sans-serif;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+}
+
 .unlikely {
     border-color: rgb(255, 0, 0);
     background: rgb(180, 60, 60);
