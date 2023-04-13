@@ -46,12 +46,11 @@
     </div>
     <div class="cyan stuff-box">
         <h2>5 day 3-hour forecast</h2>
-        <span style="color:red">{{ unlikely }} unlikely </span>
-        <span style="color:black">{{ neutral }} neutral </span>
-        <span style="color:darkgreen">{{ likely }} likely</span>
-        <div v-for="(forecast, idx) in forecasts" class="stuff-box"
-            :class="{black: forecast.neutral, green: forecast.likely, red: forecast.unlikely}" v-on:click="toggle"
-            :data-index="idx">
+        <span style="color:red">{{ unlikely_counter }} unlikely </span>
+        <span style="color:black">{{ neutral_counter }} neutral </span>
+        <span style="color:darkgreen">{{ likely_counter }} likely</span>
+
+        <div v-for="(forecast, idx) in forecasts.list" class="stuff-box" :class="likelihood(idx)" v-on:click="toggle" :data-index="idx">
             <h3>Conditions for {{ utc_to_local_date(forecast.dt) }}, {{ utc_to_local_time(forecast.dt) }}</h3>
             <li>Temperature {{ forecast.main.temp }}F</li>
             <li>{{ forecast.weather[0].description }}</li>

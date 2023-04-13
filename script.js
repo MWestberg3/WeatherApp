@@ -19,13 +19,15 @@ const app = Vue.createApp({
             pressure: undefined,
 
             // status
-            likely: 0,
-            unlikely: 0,
-            neutral: 40,
+            likely_counter: 0,
+            unlikely_counter: 0,
+            neutral_counter: 0,
 
             // 5-day forecast
-            forecasts: undefined,
-
+            forecasts: {
+                list: undefined,
+                forecast_likelihood: undefined,
+            }
         }
     },
     mounted() {
@@ -65,16 +67,12 @@ const app = Vue.createApp({
             })
             .then((response) => response.json())
             .then((data) => {
-                // const likelihood = {
-                //     likely: false,
-                //     unlikely: false,
-                //     neutral: true,
-                // }
-                // console.log(likelihood);
-                // data.push(likelihood);
-                // console.log(data);
-                this.forecasts = data.list;
-                console.log(data);
+                this.forecasts.list = data.list;
+                this.forecasts.forecast_likelihood = new Array(this.forecasts.list.length);
+                for (let i = 0; i < this.forecasts.forecast_likelihood.length; i++) {
+                    this.forecasts.forecast_likelihood[i] = "neutral";
+                    this.updateCounter();
+                }
             })
             .catch(err => "there was an issue fetching the weather")
     },
@@ -125,29 +123,39 @@ const app = Vue.createApp({
         },
 
         toggle(ev) {
+
             let idx = ev.currentTarget.getAttribute('data-index');
 
-            if (this.forecasts[idx].info == "neutral") {
-                console.log(idx);
+            if (this.forecasts.forecast_likelihood[idx] == "neutral"){
+                this.forecasts.forecast_likelihood[idx] = "unlikely";
+            } else if (this.forecasts.forecast_likelihood[idx] == "unlikely") {
+                this.forecasts.forecast_likelihood[idx] = "likely";
+            } else {
+                this.forecasts.forecast_likelihood[idx] = "neutral";
             }
+            this.updateCounter();
+        },
 
-            // if (this.forecasts[idx].black) {
-            //     this.forecasts[idx].red;
-            // } else if (this.forecasts[idx].red) {
-            //     this.forecasts[idx].green;
-            // } else if (this.forecasts[idx].green) {
-            //     this.forecasts[idx].black;
-            // }
-            // this.forecasts[idx].black = this.forecasts[idx].red;
-            // this.forecasts[idx].red = this.forecasts[idx].green;
-            // this.forecasts[idx].green = this.forecasts[idx].black;
+        likelihood: function (index) {
+            return this.forecasts.forecast_likelihood[index];
+        },
+
+        updateCounter: function() {
+            this.unlikely_counter = 0;
+            this.neutral_counter = 0;
+            this.likely_counter = 0;
+            for (let i = 0; i < this.forecasts.forecast_likelihood.length; i++) {
+                if (this.forecasts.forecast_likelihood[i] == "unlikely"){
+                    this.unlikely_counter++;
+                } else if (this.forecasts.forecast_likelihood[i] == "likely") {
+                    this.likely_counter++;
+                } else if (this.forecasts.forecast_likelihood[i] == "neutral") {
+                    this.neutral_counter++;
+                }
+            }
         }
     },
-    computed: {
-        vote: function () {
-            return this.vote;
-        }
-    }
+
 });
 
 const vm = app.mount("#app");
